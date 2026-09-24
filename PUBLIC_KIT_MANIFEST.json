@@ -2,13 +2,18 @@
   "manifest_version": 1,
   "release_version": "0.1.0",
   "repository": "Naryadchikov/open-call-producer-helper",
-  "status": "PUBLIC_RELEASE_CANDIDATE",
+  "status": "PUBLIC_RELEASE",
   "license": "MIT",
   "files": [
     {
       "path": ".gitattributes",
       "bytes": 72,
       "git_blob_sha1": "9765f6fde35cffc3cfa406fee39d76a57cb8c001"
+    },
+    {
+      "path": ".github/workflows/smoke.yml",
+      "bytes": 763,
+      "git_blob_sha1": "a16757c2557e45a71bf44ab9f498978ea0c78efd"
     },
     {
       "path": ".gitignore",
@@ -107,8 +112,8 @@
     },
     {
       "path": "examples/profile.example.json",
-      "bytes": 257,
-      "git_blob_sha1": "5a07a9291523c32d02b5d4e440852f7d0ae56c88"
+      "bytes": 295,
+      "git_blob_sha1": "876adfec4ebd20f069006ce01a2f881c7272227e"
     },
     {
       "path": "LICENSE",
@@ -226,12 +231,17 @@
       "git_blob_sha1": "6e8bf73aa550d4c57f6f35830f1bcdc7a4a62f38"
     }
   ],
+  "verification": {
+    "readme_smoke_github_actions": "passed",
+    "smoke_run_id": 36060074751,
+    "smoke_head_sha": "0bbeb337ce6e6b3970d2881f038ed653d30e9944"
+  },
   "privacy_review": {
     "reviewed_allowlist": true,
     "real_artwork_included": false,
     "real_workspaces_included": false,
     "credentials_included": false,
     "private_repository_dependency": false,
-    "note": "Manifest covers all tracked release-candidate files except this manifest itself. Git blob SHA-1 values are content identifiers."
+    "note": "Manifest covers all tracked files except this manifest itself. Git blob SHA-1 values are content identifiers."
   }
 }
