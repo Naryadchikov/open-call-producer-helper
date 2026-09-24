@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "id": "fictional-photo-call",
+  "title": "Fictional Photography Open Call — Test Fixture",
+  "demo_only": true,
+  "source": {
+    "kind": "demo",
+    "url": null,
+    "captured_at": "2026-09-15T12:00:00+00:00",
+    "snapshot_path": "sources/call.md",
+    "snapshot_sha256": "153a16e1f4f9b787560625370b995cbe2f0b98ff32898f68c71a8b8561601164",
+    "complete_rules_captured": true
+  },
+  "facts": {
+    "residency_allowed": {
+      "value": [
+        "SE",
+        "FI"
+      ],
+      "evidence": {
+        "quote": "Eligible residents: SE and FI.",
+        "locator": "Eligibility"
+      }
+    },
+    "media_allowed": {
+      "value": [
+        "photography"
+      ],
+      "evidence": {
+        "quote": "Accepted medium: photography.",
+        "locator": "Eligibility"
+      }
+    },
+    "deadline": {
+      "value": "2099-06-30T23:59:00+02:00",
+      "evidence": {
+        "quote": "Deadline: 2099-06-30T23:59:00+02:00.",
+        "locator": "Deadline"
+      }
+    },
+    "fee_amount": {
+      "value": 0,
+      "evidence": {
+        "quote": "Entry fee: 0 EUR.",
+        "locator": "Entry fee"
+      }
+    },
+    "fee_currency": {
+      "value": "EUR",
+      "evidence": {
+        "quote": "Entry fee: 0 EUR.",
+        "locator": "Entry fee"
+      }
+    },
+    "min_images": {
+      "value": 3,
+      "evidence": {
+        "quote": "Submit 3 to 5 images.",
+        "locator": "Images"
+      }
+    },
+    "max_images": {
+      "value": 5,
+      "evidence": {
+        "quote": "Submit 3 to 5 images.",
+        "locator": "Images"
+      }
+    },
+    "allowed_formats": {
+      "value": [
+        "JPEG"
+      ],
+      "evidence": {
+        "quote": "Accepted output format: JPEG.",
+        "locator": "Images"
+      }
+    },
+    "min_long_edge_px": {
+      "value": 800,
+      "evidence": {
+        "quote": "Long edge: at least 800 pixels and at most 1600 pixels.",
+        "locator": "Images"
+      }
+    },
+    "max_long_edge_px": {
+      "value": 1600,
+      "evidence": {
+        "quote": "Long edge: at least 800 pixels and at most 1600 pixels.",
+        "locator": "Images"
+      }
+    },
+    "max_file_bytes": {
+      "value": 1000000,
+      "evidence": {
+        "quote": "Maximum file size: 1000000 bytes per image (decimal bytes, not MiB).",
+        "locator": "Images"
+      }
+    },
+    "statement_max_words": {
+      "value": 120,
+      "evidence": {
+        "quote": "Artist statement: maximum 120 words.",
+        "locator": "Text"
+      }
+    },
+    "bio_max_words": {
+      "value": 80,
+      "evidence": {
+        "quote": "Artist biography: maximum 80 words.",
+        "locator": "Text"
+      }
+    },
+    "filename_rule": {
+      "value": "any",
+      "evidence": {
+        "quote": "Any filename is accepted.",
+        "locator": "Images"
+      }
+    },
+    "rights_clause": {
+      "value": "The artist retains copyright. Display is limited to the fictional jury.",
+      "evidence": {
+        "quote": "The artist retains copyright. The fictional organiser may display submitted\nwork only to this fictional jury.",
+        "locator": "Rights"
+      }
+    }
+  },
+  "unresolved_requirements": []
+}
