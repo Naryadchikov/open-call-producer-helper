@@ -1,0 +1,29 @@
+name: Public helper smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: README fictional smoke
+        run: |
+          python -m ocp demo --out workspaces/demo
+          python -m ocp assess --workspace workspaces/demo
+          python -m ocp prepare --workspace workspaces/demo --name draft-001
+          python -m ocp validate --workspace workspaces/demo --package output/draft-001
