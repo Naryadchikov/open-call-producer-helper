@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-call-producer.local/schemas/prepare_decisions.schema.json",
+  "title": "Prepare-draft decision record (private, local JSON)",
+  "description": "Smallest structured private decision record binding human approvals to a stable execution fingerprint. The fingerprint binds plan identity PLUS packaged statement/biography text, artwork title/year/medium, and processing.untagged_colour_policy. Acknowledgements authorize prepare action but MUST NOT invent organiser facts, force-pass mismatches, invent upload limits, or rewrite knowledge_status to unsupported not_required.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_fingerprint",
+    "artwork_selection",
+    "processing",
+    "execute_approval"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "demo_only": {
+      "type": "boolean",
+      "description": "True for fictional/synthetic records only."
+    },
+    "fictional_test_record": {
+      "type": "boolean",
+      "description": "Mark clearly fictional decision files used by synthetic tests."
+    },
+    "plan_fingerprint": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of canonical execution identity: material plan + packaged statement/bio + artwork title/year/medium + processing.untagged_colour_policy (see docs/DATA_CONTRACT.md). Volatile timestamps are excluded."
+    },
+    "artwork_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approved", "artwork_ids_in_order"],
+      "properties": {
+        "approved": { "type": "boolean" },
+        "artwork_ids_in_order": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 30,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+          }
+        }
+      }
+    },
+    "processing": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Material processing decisions bound into the execution fingerprint. Changing untagged_colour_policy invalidates execute approval.",
+      "required": ["untagged_colour_policy"],
+      "properties": {
+        "untagged_colour_policy": {
+          "description": "Explicit decision for untagged RGB/L sources. null only when no untagged sources exist.",
+          "anyOf": [
+            { "type": "null" },
+            { "type": "string", "enum": ["assume_srgb", "reject"] }
+          ]
+        }
+      }
+    },
+    "manual_acknowledgements": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["manual_id", "acknowledged"],
+        "properties": {
+          "manual_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "acknowledged": { "type": "boolean" },
+          "note": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "authorizes_prepare_only": {
+            "type": "boolean",
+            "description": "When true, acknowledgement only authorizes running prepare-draft; it is not organiser evidence."
+          }
+        }
+      }
+    },
+    "execute_approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approved", "plan_fingerprint"],
+      "properties": {
+        "approved": { "type": "boolean" },
+        "plan_fingerprint": {
+          "type": "string",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "approved_at": {
+          "type": ["string", "null"],
+          "description": "Optional wall-clock stamp; NOT part of the plan fingerprint."
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      }
+    }
+  }
+}
