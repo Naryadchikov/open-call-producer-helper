@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ocp/profile.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "artist_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "residence_country": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "approved_bio": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
+    "fee_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "artist_name",
+    "residence_country",
+    "approved_bio",
+    "fee_budget"
+  ]
+}
