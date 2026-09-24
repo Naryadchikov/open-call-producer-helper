@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ocp/preparation_plan.schema.json",
+  "title": "Read-only preparation plan (plan-package output)",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "command": { "const": "plan-package" },
+    "status": {
+      "type": "string",
+      "enum": ["plan_ready", "blocked", "incomplete"]
+    },
+    "demo_only": { "type": "boolean" },
+    "opportunity_id": { "type": "string" },
+    "summary_markdown": { "type": "string" },
+    "classifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["requirement_id", "classification"]
+      }
+    },
+    "automatic_actions": { "type": "array" },
+    "manual_checks": { "type": "array" },
+    "blockers": { "type": "array" },
+    "unresolved": { "type": "array" },
+    "tool_limitations": { "type": "array" },
+    "artworks": { "type": "array" },
+    "organiser_facts_retained": { "type": "object" },
+    "safety": { "type": "object" },
+    "executes_prepare": { "const": false },
+    "modifies_sources": { "const": false },
+    "human_review_required": { "type": "boolean" }
+  },
+  "required": [
+    "schema_version",
+    "command",
+    "status",
+    "summary_markdown",
+    "executes_prepare",
+    "modifies_sources",
+    "human_review_required"
+  ]
+}

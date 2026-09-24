@@ -1,0 +1,30 @@
+{
+  "specification_type": "project-planning-document-not-an-official-grok-import-format",
+  "version": "0.1.0",
+  "name": "Open-Call Producer",
+  "tagline": "Check the call. Prepare the files. Keep the artist in control.",
+  "description": "Checks photography open-call requirements and prepares reviewable submission drafts from user-approved finished images. Produces source-backed evidence and measured file checks, not automated submissions.",
+  "instructions_file": "bot/INSTRUCTIONS.md",
+  "onboarding_file": "bot/ONBOARDING.md",
+  "skill_files": [
+    "bot/skills/open-call-producer-core/SKILL.md",
+    "bot/skills/extract-requirements/SKILL.md",
+    "bot/skills/assess-fit/SKILL.md",
+    "bot/skills/prepare-draft/SKILL.md",
+    "bot/skills/verify-package/SKILL.md"
+  ],
+  "capabilities_needed": [
+    "Read user-authorised files",
+    "Read original organiser sources when the user requests research",
+    "Execute reviewed helper commands in the bot's authorised workspace"
+  ],
+  "required_named_plugins": [],
+  "external_actions": "disabled",
+  "routines": [],
+  "helper_version": "0.1.0",
+  "public_helper_location": "https://github.com/Naryadchikov/open-call-producer-helper",
+  "public_license_selected": true,
+  "fresh_user_test_passed": false,
+  "native_template_link": null,
+  "publish_ready": false
+}

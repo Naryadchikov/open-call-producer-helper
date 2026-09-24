@@ -1,0 +1,937 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ocp/opportunity.v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "source_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]{0,47}$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "original_page",
+            "user_supplied_copy",
+            "demo",
+            "application_instructions",
+            "organiser_listing",
+            "organiser_services",
+            "secondary_aggregator",
+            "access_blocker_evidence",
+            "other"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https://[^\\s]+$",
+              "maxLength": 2000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "captured_at": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 40
+        },
+        "snapshot_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "snapshot_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "complete_rules_captured": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "source_id",
+        "kind",
+        "url",
+        "captured_at",
+        "snapshot_path",
+        "snapshot_sha256",
+        "complete_rules_captured"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]{0,47}$"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 3000
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "source_id",
+        "quote",
+        "locator"
+      ]
+    },
+    "knowledge_status": {
+      "type": "string",
+      "enum": [
+        "known",
+        "explicitly_unrestricted",
+        "not_required",
+        "not_stated",
+        "inaccessible",
+        "conflicting"
+      ]
+    },
+    "helper_support": {
+      "type": "string",
+      "enum": [
+        "supported",
+        "manual",
+        "unsupported"
+      ]
+    },
+    "optional_charge": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]{0,47}$"
+        },
+        "amount": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "selected": {
+          "type": "boolean",
+          "default": false
+        },
+        "condition": {
+          "description": "Machine-readable when the optional amount applies. Never infer from description. complimentary_at_or_above_image_count: amount applies when image_count < threshold; at/above threshold the selected charge is complimentary (0). unresolved: selected charge blocks machine-calculable totals.",
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "complimentary_at_or_above_image_count",
+                    "unresolved"
+                  ]
+                },
+                "threshold": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "complimentary_at_or_above_image_count"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "threshold"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "amount",
+        "description",
+        "selected"
+      ]
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,47}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "demo_only": {
+      "type": "boolean"
+    },
+    "source": {
+      "$ref": "#/definitions/source_block"
+    },
+    "additional_sources": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "$ref": "#/definitions/source_block"
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "residency": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(\\*|[A-Z]{2})$"
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "maxItems": 250
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "media_allowed": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "maxItems": 20
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "deadline": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "deadline_date": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "deadline_time": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9]{2}:[0-9]{2}(:[0-9]{2})?$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "deadline_timezone": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "deadline_datetime": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 20,
+                  "maxLength": 40
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "deadline_date",
+            "deadline_time",
+            "deadline_timezone",
+            "deadline_datetime",
+            "evidence"
+          ]
+        },
+        "fee_schedule": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "base_fee": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "images_included": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "additional_image_fee": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "currency_raw": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 20
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "currency_code": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Z]{3}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "optional_charges": {
+              "type": "array",
+              "maxItems": 20,
+              "items": {
+                "$ref": "#/definitions/optional_charge"
+              }
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "base_fee",
+            "images_included",
+            "additional_image_fee",
+            "currency_raw",
+            "currency_code",
+            "optional_charges",
+            "evidence"
+          ]
+        },
+        "image_count": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "rule": {
+              "type": "string",
+              "enum": [
+                "limited",
+                "unlimited",
+                "not_stated",
+                "inaccessible",
+                "conflicting"
+              ]
+            },
+            "min": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "max": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "rule",
+            "min",
+            "max",
+            "evidence"
+          ]
+        },
+        "allowed_formats": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "JPEG",
+                      "PNG",
+                      "TIFF",
+                      "PDF",
+                      "OTHER"
+                    ]
+                  },
+                  "minItems": 1,
+                  "maxItems": 5,
+                  "uniqueItems": true
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "min_long_edge_px": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "max_long_edge_px": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "max_file_bytes": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Organiser-declared per-file upload limit. value is exact decimal bytes when verified; declared_label may hold UI wording (e.g. '256 MB') when unit/byte conversion is unverified. Schema maximum is a modelling ceiling for large organiser declarations — not the helper encode ceiling (TOOL_MAX_FILE_BYTES) and not permission to treat unknown limits as unrestricted.",
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1073741824
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "declared_label": {
+              "description": "Optional organiser UI/label wording when exact bytes are not verified (e.g. '256 MB'). Do not invent a byte conversion into value.",
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "statement_max_words": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "bio_max_words": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "filename_rule": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        },
+        "rights_clause": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledge_status": {
+              "$ref": "#/definitions/knowledge_status"
+            },
+            "helper_support": {
+              "$ref": "#/definitions/helper_support"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 10000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/evidence"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "knowledge_status",
+            "helper_support",
+            "value",
+            "evidence"
+          ]
+        }
+      },
+      "required": [
+        "residency",
+        "media_allowed",
+        "deadline",
+        "fee_schedule",
+        "image_count",
+        "allowed_formats",
+        "min_long_edge_px",
+        "max_long_edge_px",
+        "max_file_bytes",
+        "statement_max_words",
+        "bio_max_words",
+        "filename_rule",
+        "rights_clause"
+      ]
+    },
+    "unresolved_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000
+      },
+      "maxItems": 100
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "demo_only",
+    "source",
+    "additional_sources",
+    "requirements",
+    "unresolved_requirements"
+  ]
+}

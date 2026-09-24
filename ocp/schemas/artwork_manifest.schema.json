@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ocp/artwork_manifest.schema.json",
+  "title": "Approved artwork manifest for plan-package (read-only)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "artworks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,47}$"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          },
+          "submission_order": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 30
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "year": {
+            "type": "integer",
+            "minimum": 1800,
+            "maximum": 2200
+          },
+          "medium": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "approved_for_submission_copy": {
+            "type": "boolean",
+            "description": "Must be explicitly true; plan-package stops otherwise."
+          }
+        },
+        "required": [
+          "id",
+          "path",
+          "submission_order",
+          "approved_for_submission_copy"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "artworks"
+  ]
+}

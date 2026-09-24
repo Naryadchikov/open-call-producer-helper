@@ -1,0 +1,237 @@
+{
+  "manifest_version": 1,
+  "release_version": "0.1.0",
+  "repository": "Naryadchikov/open-call-producer-helper",
+  "status": "PUBLIC_RELEASE_CANDIDATE",
+  "license": "MIT",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 72,
+      "git_blob_sha1": "9765f6fde35cffc3cfa406fee39d76a57cb8c001"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 527,
+      "git_blob_sha1": "62290c64ae639b682552c6678fa50fbaa9dbcd0d"
+    },
+    {
+      "path": "bot/INSTRUCTIONS.md",
+      "bytes": 1800,
+      "git_blob_sha1": "1ff989dd192b8817fec8bc1a98a6cbfb96f82920"
+    },
+    {
+      "path": "bot/ONBOARDING.md",
+      "bytes": 773,
+      "git_blob_sha1": "e46be7c1700bf2078b6862bb0d024e489fa8f0b7"
+    },
+    {
+      "path": "bot/skills/assess-fit/SKILL.md",
+      "bytes": 2669,
+      "git_blob_sha1": "a839d98f18fa224d35e9e782f624a6e6d55ade2f"
+    },
+    {
+      "path": "bot/skills/extract-requirements/SKILL.md",
+      "bytes": 2848,
+      "git_blob_sha1": "10ff112a4b9e37961a0ab2110383b8bf4fde4831"
+    },
+    {
+      "path": "bot/skills/open-call-producer-core/SKILL.md",
+      "bytes": 1520,
+      "git_blob_sha1": "bfd694e2ff8164898e02e5301ae64f1876b3e6f4"
+    },
+    {
+      "path": "bot/skills/prepare-draft/SKILL.md",
+      "bytes": 910,
+      "git_blob_sha1": "718352367193b1f13034ff1c4d6d61fb94196898"
+    },
+    {
+      "path": "bot/skills/verify-package/SKILL.md",
+      "bytes": 2235,
+      "git_blob_sha1": "9094fd13bf0c2455be25211011448f4f7c91a9e9"
+    },
+    {
+      "path": "bot/template.spec.json",
+      "bytes": 1320,
+      "git_blob_sha1": "bcd96602e1da180b529b924ccff4f4abe6795b84"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 3494,
+      "git_blob_sha1": "d38fa08714d4a8ed76f873726b53d46ffcc17cf4"
+    },
+    {
+      "path": "docs/DATA_CONTRACT.md",
+      "bytes": 19594,
+      "git_blob_sha1": "6705961f3f162df7f661d7ec6b53baa7b789e2ca"
+    },
+    {
+      "path": "docs/DEMO.md",
+      "bytes": 1898,
+      "git_blob_sha1": "9777ec2233654c6ce2d56d11155813c2a849580d"
+    },
+    {
+      "path": "docs/GROK_SETUP.md",
+      "bytes": 1874,
+      "git_blob_sha1": "2899837100ef1b01c27b1f0c563f61952d633a25"
+    },
+    {
+      "path": "docs/LIMITATIONS.md",
+      "bytes": 4397,
+      "git_blob_sha1": "75ccfe1ed636deb980bef3962eca72a7eee2a129"
+    },
+    {
+      "path": "docs/SECURITY.md",
+      "bytes": 3877,
+      "git_blob_sha1": "dcec15adbdba173787cba87ab2330f8410f7b762"
+    },
+    {
+      "path": "docs/SOURCES.md",
+      "bytes": 906,
+      "git_blob_sha1": "cde2edfff0264286cd74f2e9a93ffe76d7b72afd"
+    },
+    {
+      "path": "examples/application.example.json",
+      "bytes": 1065,
+      "git_blob_sha1": "76a1aa9d44122cd23b299814a4ad0de62ad32806"
+    },
+    {
+      "path": "examples/fictional-call.md",
+      "bytes": 884,
+      "git_blob_sha1": "b8dfd3bd1a561fc9cdfb264b0b055913019a886a"
+    },
+    {
+      "path": "examples/opportunity.example.json",
+      "bytes": 3148,
+      "git_blob_sha1": "268765ea6d439da2200145620c45c4dc809d71cf"
+    },
+    {
+      "path": "examples/profile.example.json",
+      "bytes": 257,
+      "git_blob_sha1": "5a07a9291523c32d02b5d4e440852f7d0ae56c88"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1079,
+      "git_blob_sha1": "78cb5f7fa14562ec4aaffc370fa8ad811fd5a0e5"
+    },
+    {
+      "path": "ocp/__init__.py",
+      "bytes": 101,
+      "git_blob_sha1": "eb40456a3c5482c50c7ce34b94cebaa2bd7e0977"
+    },
+    {
+      "path": "ocp/__main__.py",
+      "bytes": 48,
+      "git_blob_sha1": "eb53e2f31b2f703ad32ef64b8a41faa3e7d18e08"
+    },
+    {
+      "path": "ocp/assessment.py",
+      "bytes": 8638,
+      "git_blob_sha1": "fdb3e2e2b8552ad8d8ca4431c1df2f344e154da4"
+    },
+    {
+      "path": "ocp/call_assessment.py",
+      "bytes": 81150,
+      "git_blob_sha1": "411a1ac5857b96b7e46ba09840549165e302be25"
+    },
+    {
+      "path": "ocp/cli.py",
+      "bytes": 8176,
+      "git_blob_sha1": "bc24b04cd6de073b6cf29c53ca29aa51bc407b02"
+    },
+    {
+      "path": "ocp/decisions.py",
+      "bytes": 9913,
+      "git_blob_sha1": "8b4d250053d764a6284d7d6afb6915990643a8c7"
+    },
+    {
+      "path": "ocp/demo.py",
+      "bytes": 3164,
+      "git_blob_sha1": "239112a8f4fe4b62a53ca6fe73d05c21b5565b72"
+    },
+    {
+      "path": "ocp/draft_v2.py",
+      "bytes": 36079,
+      "git_blob_sha1": "fc2b9d251f0fce227503284385c23760df743d73"
+    },
+    {
+      "path": "ocp/imaging.py",
+      "bytes": 17474,
+      "git_blob_sha1": "f3c6e6d160f8b4d660a48230a5aa10fabd27d55f"
+    },
+    {
+      "path": "ocp/io.py",
+      "bytes": 5120,
+      "git_blob_sha1": "516543a239e53e6f34fa2ba1777cb2204b2a43c4"
+    },
+    {
+      "path": "ocp/package_plan.py",
+      "bytes": 69123,
+      "git_blob_sha1": "3c913e54854af7b3904fdfcb8afb24decaf13e4d"
+    },
+    {
+      "path": "ocp/packaging.py",
+      "bytes": 11102,
+      "git_blob_sha1": "9a9f13f4830f74c4887242c786e98bbbf2bcdc19"
+    },
+    {
+      "path": "ocp/schemas/application.schema.json",
+      "bytes": 1784,
+      "git_blob_sha1": "b736cc18347d17945f9464b2981dc9ae8bc35c99"
+    },
+    {
+      "path": "ocp/schemas/artwork_manifest.schema.json",
+      "bytes": 1631,
+      "git_blob_sha1": "bb5e6348f53afdbdc2ca79a60303d3aceacb9eab"
+    },
+    {
+      "path": "ocp/schemas/opportunity.schema.json",
+      "bytes": 22585,
+      "git_blob_sha1": "9139ac166bbcb5e78bfd38c428d730fb676d6ac3"
+    },
+    {
+      "path": "ocp/schemas/opportunity.v2.schema.json",
+      "bytes": 24100,
+      "git_blob_sha1": "d1cb2a78d487ce9b1d87f15e47972f675bded9cc"
+    },
+    {
+      "path": "ocp/schemas/preparation_plan.schema.json",
+      "bytes": 1432,
+      "git_blob_sha1": "8fc1d7e17d34c3b334362ee0391011dbbd915759"
+    },
+    {
+      "path": "ocp/schemas/prepare_decisions.schema.json",
+      "bytes": 4065,
+      "git_blob_sha1": "64a14cc1df5b8ddcd68dae95c0a223d20a2f4a7a"
+    },
+    {
+      "path": "ocp/schemas/profile.schema.json",
+      "bytes": 1145,
+      "git_blob_sha1": "30f57ae55612a4c7632900060160253e8ce0ef01"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2141,
+      "git_blob_sha1": "0743d921e59a0c57ad5a6dd360b22b2411572927"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 34,
+      "git_blob_sha1": "0e6ca2aed6754bef7235078eff23ef037d99ed0b"
+    },
+    {
+      "path": "VERSION",
+      "bytes": 6,
+      "git_blob_sha1": "6e8bf73aa550d4c57f6f35830f1bcdc7a4a62f38"
+    }
+  ],
+  "privacy_review": {
+    "reviewed_allowlist": true,
+    "real_artwork_included": false,
+    "real_workspaces_included": false,
+    "credentials_included": false,
+    "private_repository_dependency": false,
+    "note": "Manifest covers all tracked release-candidate files except this manifest itself. Git blob SHA-1 values are content identifiers."
+  }
+}
