@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "statement": "These synthetic geometric test images demonstrate file preparation and validation. They are not a real photographic series, and this is not an actual application.",
+  "untagged_colour_policy": "assume_srgb",
+  "artworks": [
+    {
+      "id": "demo-01",
+      "title": "Synthetic Test 1",
+      "year": 2026,
+      "medium": "photography",
+      "path": "originals/demo-01.png",
+      "credit": "Synthetic test fixture — no real artist",
+      "approved_for_submission_copy": true
+    },
+    {
+      "id": "demo-02",
+      "title": "Synthetic Test 2",
+      "year": 2026,
+      "medium": "photography",
+      "path": "originals/demo-02.png",
+      "credit": "Synthetic test fixture — no real artist",
+      "approved_for_submission_copy": true
+    },
+    {
+      "id": "demo-03",
+      "title": "Synthetic Test 3",
+      "year": 2026,
+      "medium": "photography",
+      "path": "originals/demo-03.png",
+      "credit": "Synthetic test fixture — no real artist",
+      "approved_for_submission_copy": true
+    }
+  ]
+}
