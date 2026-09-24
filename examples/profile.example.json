@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "artist_name": "Mira Example",
-  "residence_country": "GB",
-  "approved_bio": "Mira Example is a fictional photographer used only for the Open-Call Producer demo.",
+  "artist_name": "Example Artist",
+  "residence_country": "SE",
+  "approved_bio": "Example Artist is a fictional photographer used to test submission preparation. This biography describes no real person.",
   "fee_budget": {
-    "amount": 100,
-    "currency": "USD"
+    "amount": 25,
+    "currency": "EUR"
   }
 }
