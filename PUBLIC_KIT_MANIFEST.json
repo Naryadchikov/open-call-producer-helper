@@ -106,6 +106,11 @@
       "git_blob_sha1": "268765ea6d439da2200145620c45c4dc809d71cf"
     },
     {
+      "path": "examples/profile.example.json",
+      "bytes": 257,
+      "git_blob_sha1": "5a07a9291523c32d02b5d4e440852f7d0ae56c88"
+    },
+    {
       "path": "LICENSE",
       "bytes": 1079,
       "git_blob_sha1": "78cb5f7fa14562ec4aaffc370fa8ad811fd5a0e5"
@@ -227,6 +232,6 @@
     "real_workspaces_included": false,
     "credentials_included": false,
     "private_repository_dependency": false,
-    "note": "Manifest covers tracked release-candidate files except this manifest itself. Git blob SHA-1 values are content identifiers, not a substitute for later release signatures."
+    "note": "Manifest covers all tracked release-candidate files except this manifest itself. Git blob SHA-1 values are content identifiers."
   }
 }
